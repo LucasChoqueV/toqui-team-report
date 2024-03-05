@@ -1,0 +1,1 @@
+export { default as TrSpinner} from "./tr-spinner/TrSpinner";
