@@ -1,13 +1,53 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite + React + TS</title>
+  <style>
+    @font-face {
+      font-family: 'Lexend-Thin';
+      src: url('./src/apps/assets/fonts/Lexend-Thin.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Lexend-Light';
+      src: url('./src/apps/assets/fonts/Lexend-Light.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Lexend-Bold';
+      src: url('./src/apps/assets/fonts/Lexend-Bold.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    * {
+      padding: 0;
+      margin: 0;
+      font-family: 'Lexend-Light', sans-serif;
+    }
+
+    :root {
+      --primary-color: #014C3E;
+      --secondary-color: #EEFCFA;
+      --third-color: #010101;
+      --fourth-color: #018060;
+      --fifth-color: #177A75;
+      --bg-color: #EEFCFA;
+      --error-color: #d9534f;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
 </html>

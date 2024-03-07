@@ -3,7 +3,7 @@ import { MainMenu } from "@/apps/layout/index";
 const Layout = (props: any) => {
 
     return (
-        <Box sx={{ minHeight: "100vh", backgroundColor: "#2A2F4A" }}>
+        <Box sx={{ minHeight: "100vh", backgroundColor: "var(--bg-color)" }}>
             <MainMenu />
             {props.children}
         </Box>

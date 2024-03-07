@@ -1,9 +1,9 @@
+import { Landing } from "@/libs/components";
+
 const LandingPage = () => {
 
     return (
-        <h1>
-            Testing Landing
-        </h1>
+        <Landing />
     )
 }
 
