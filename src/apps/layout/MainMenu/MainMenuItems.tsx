@@ -1,5 +1,4 @@
 import { IMenuItem } from "@/apps/layout/index";
-import { People, Home, Shop } from "@mui/icons-material"
 
 const getMenuItems = (isUserLoggedIn: boolean) => {
     let menuItems: Array<IMenuItem> = [];
@@ -9,19 +8,26 @@ const getMenuItems = (isUserLoggedIn: boolean) => {
                 id: 1,
                 title: "Home",
                 href: "/",
-                icon: <Home />
+                isMenu: false
             },
             {
                 id: 2,
                 title: "Services",
-                href: "/catalog",
-                icon: <Shop />
+                href: "",
+                isMenu: true,
+                subItems: [
+                    {
+                        id: 10,
+                        title: "Jira Software",
+                        href: "/services/jira-software"
+                    }
+                ]
             },
             {
                 id: 3,
                 title: "About us",
                 href: "/about",
-                icon: <People />
+                isMenu: false
             }
         ];
     } else {
@@ -30,19 +36,31 @@ const getMenuItems = (isUserLoggedIn: boolean) => {
                 id: 1,
                 title: "Home",
                 href: "/",
-                icon: <Home />
+                isMenu: false
             },
             {
                 id: 2,
                 title: "Services",
-                href: "/catalog",
-                icon: <Shop />
+                href: "/services",
+                isMenu: true,
+                subItems: [
+                    {
+                        id: 10,
+                        title: "Jira Software",
+                        href: "/services/jira-software"
+                    },
+                    {
+                        id: 20,
+                        title: "Azure DevOps",
+                        href: "/services/azure-devops"
+                    },
+                ]
             },
             {
                 id: 3,
                 title: "About us",
                 href: "/about",
-                icon: <People />
+                isMenu: false
             }
         ];
     }

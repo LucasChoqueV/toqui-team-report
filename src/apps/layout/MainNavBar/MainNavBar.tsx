@@ -10,7 +10,7 @@ import {
     Container
 } from "@mui/material";
 import { Menu as MenuIcon } from "@mui/icons-material"
-import { IMenuItem } from "@/apps/layout/index";
+import { IMenuItem, ISubItem } from "@/apps/layout/index";
 import { styled } from "@mui/material";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -36,7 +36,7 @@ const StyledButton = styled(Button)({
 
 const StyledButton2 = styled(Button)({
     color: "var(--third-color)",
-    fontSize:"15px",
+    fontSize: "15px",
     padding: "10px 20px",
     borderRadius: 0,
     "&:hover": {
@@ -54,6 +54,10 @@ const StyledNavLink = styled(NavLink)({
     }
 });
 
+interface ISubMenuStateInterface {
+    id: number;
+    isOpen: boolean;
+}
 interface MainNavBarProps {
     menuItems: IMenuItem[];
 }
@@ -62,6 +66,7 @@ const MainNavBar = (props: MainNavBarProps) => {
 
     const navigate = useNavigate();
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -69,6 +74,39 @@ const MainNavBar = (props: MainNavBarProps) => {
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
+    };
+
+
+    const [subMenuState, setSubMenuState] = useState(props.menuItems.map(x => ({ id: x.id, isOpen: false }) as ISubMenuStateInterface));
+
+    const handleClick = (idArgs: number, event: React.MouseEvent<HTMLElement>) => {
+        const update = subMenuState.map(x => {
+            if (x.id == idArgs) {
+                return {
+                    ...x,
+                    isOpen: true
+                }
+            } else {
+                return x;
+            }
+        })
+        setSubMenuState(update);
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = (idArgs: number) => {
+        setAnchorEl(null);
+        const update = subMenuState.map(x => {
+            if (x.id == idArgs) {
+                return {
+                    ...x,
+                    isOpen: false
+                }
+            } else {
+                return x;
+            }
+        })
+        setSubMenuState(update);
     };
 
     return (
@@ -81,7 +119,7 @@ const MainNavBar = (props: MainNavBarProps) => {
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
-                            fontFamily:"Lexend-Bold",
+                            fontFamily: "Lexend-Bold",
                             letterSpacing: '.06rem',
                             color: 'var(--third-color)',
                             textDecoration: 'none',
@@ -161,21 +199,67 @@ const MainNavBar = (props: MainNavBarProps) => {
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}></Box>
                     <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
                         {props.menuItems.map((item: IMenuItem) => (
-                            <StyledButton2
-                                key={item.id}
-                                onClick={() => navigate(item.href)}
-                            >
-                                <StyledNavLink
-                                    to={item.href}
-                                    style={({ isActive }) => {
-                                        return {
-                                            color: isActive ? "#014C3E" : "inherit",
-                                            fontWeight: isActive ? "bold" : "normal"
-                                        };
-                                    }}>
-                                    {item.title}
-                                </StyledNavLink>
-                            </StyledButton2>
+                            <div>
+                                {
+                                    !item.isMenu ?
+                                        <StyledButton2
+                                            key={item.id}
+                                            onClick={() => navigate(item.href)}
+                                        >
+                                            <StyledNavLink
+                                                to={item.href}
+                                                style={({ isActive }) => {
+                                                    return {
+                                                        color: isActive ? "#014C3E" : "inherit",
+                                                        fontWeight: isActive ? "bold" : "normal"
+                                                    };
+                                                }}>
+                                                {item.title}
+                                            </StyledNavLink>
+                                        </StyledButton2>
+                                        :
+                                        <Box key={item.id} sx={{ flexGrow: 0 }}>
+                                            <StyledButton2 key={item.id} onClick={(event) => handleClick(item.id, event)}>
+                                                {item.title}
+                                            </StyledButton2>
+                                            <Menu
+                                                sx={{ mt: '45px' }}
+                                                id={`${item.id}`}
+                                                key={item.id}
+                                                anchorEl={anchorEl}
+                                                anchorOrigin={{
+                                                    vertical: 'top',
+                                                    horizontal: 'right',
+                                                }}
+                                                keepMounted
+                                                transformOrigin={{
+                                                    vertical: 'top',
+                                                    horizontal: 'right',
+                                                }}
+                                                open={subMenuState.find(x => x.id == item.id)?.isOpen || false}
+                                                onClose={() => handleClose(item.id)}
+                                                onClick={() => handleClose(item.id)}
+                                            >
+                                                {
+                                                    item.subItems?.map((subItem: ISubItem) => (
+                                                        <MenuItem onClick={() => navigate(subItem.href)}>
+                                                            <StyledNavLink
+                                                                to={subItem.href}
+                                                                style={({ isActive }) => {
+                                                                    return {
+                                                                        color: isActive ? "#014C3E" : "inherit",
+                                                                        fontWeight: isActive ? "bold" : "normal"
+                                                                    };
+                                                                }}>
+                                                                {subItem.title}
+                                                            </StyledNavLink>
+                                                        </MenuItem>
+                                                    ))
+                                                }
+                                            </Menu>
+                                        </Box>
+                                }
+                            </div>
                         ))}
                     </Box>
                     {/* {authCtx.isUserLoggedIn && <Login />}
