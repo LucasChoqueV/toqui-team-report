@@ -1,14 +1,14 @@
 version: '3.4'
 
 networks:
-  frontend:
+  global:
 services:
   team-report-app:
     container_name: team-report-app-container
     build:
       context: .
     networks:
-      - frontend
+      - global
     ports:
       - 3000:80
     environment:

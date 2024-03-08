@@ -2,7 +2,6 @@ import { TrBox, TrContainer, TrMainCard } from "@/libs/ui/index";
 import { Button, Typography, styled } from "@mui/material";
 import image from "@/apps/assets/images/moon.png";
 import Grid from '@mui/material/Unstable_Grid2';
-import { fontWeight } from "@mui/system";
 
 const Title = styled(Typography)(({ theme }) => ({
     fontFamily: "Lexend-Bold",

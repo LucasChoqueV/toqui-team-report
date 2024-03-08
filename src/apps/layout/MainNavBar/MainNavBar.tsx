@@ -10,7 +10,7 @@ import {
     Container
 } from "@mui/material";
 import { Menu as MenuIcon } from "@mui/icons-material"
-import { IMenuItem, ISubItem } from "@/apps/layout/index";
+import { IMenuItem } from "@/apps/layout/index";
 import { styled } from "@mui/material";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -241,7 +241,7 @@ const MainNavBar = (props: MainNavBarProps) => {
                                                 onClick={() => handleClose(item.id)}
                                             >
                                                 {
-                                                    item.subItems?.map((subItem: ISubItem) => (
+                                                    item.subItems?.map((subItem: any) => (
                                                         <MenuItem onClick={() => navigate(subItem.href)}>
                                                             <StyledNavLink
                                                                 to={subItem.href}
