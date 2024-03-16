@@ -1,7 +1,7 @@
 export class JiraReportViewModel {
     sprintName: string = "";
     total: number = 0;
-    queries: IssueViewModel[] = [];
+    queries: IssueViewModel[][] = [];
 }
 
 export class IssueViewModel {

@@ -1,52 +1,70 @@
-import { useAppDispatch } from "@/apps/hooks";
+import { useAppDispatch, useAppSelector } from "@/apps/hooks";
 import { GenerateReportJsonCommand, generateReportJsonApi } from "@/libs/backend";
-import { TrBox, TrContainer, TrMainCard, TrParagraph, TrSubTitle, TrTitle } from "@/libs/ui"
+import { JiraSoftwareForm } from "@/libs/controls";
+import { TrBox, TrContainer, TrMainCard, TrParagraph, TrSpinner, TrSubTitle, TrTitle } from "@/libs/ui"
+import Grid from "@mui/material/Unstable_Grid2/Grid2";
+import JiraResult from "./JiraResult";
+import { useState } from "react";
 
 type JiraSoftwareProps = {}
 
 const JiraSoftware = (props: JiraSoftwareProps) => {
 
     const dispatch = useAppDispatch();
+    const jiraCtx = useAppSelector(store => store.jiraReducer);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const handleClick = async () => {
-        const token = "bHVjYXNAb3Blbml4LmNvbS5hcjpBVEFUVDN4RmZHRjBLVHJNVTFSbFA2NURSUDZ1XzIxVjZ1UnFuSE1uN19TMGRPbTFvaUFMZndxNXpOMmN3MDBmX21QVzVuM0ZzNGs5Wm5mZmRudk5XSV9BeS1Lcy16cUNYcmRlUWZMcUpkN0Fad1YwMjJ3TEI5Ymx1WnBKUlVsMDV1MGVtSERMWmVFbTN2aEc0dXV6NTVtTUMtWHR5d0xCNHBVeFZFY21yYmRuOTJSMlJxVTFUT2M9ODcxM0Y3QTM="
-        const command: GenerateReportJsonCommand = {
-            sprintName: "DT Sprint 5",
-            boardName: "DT board",
-            queries: [
-                "Status/Assignee/IssueType",
-                "Status/IssueType/Assignee",
-                "Assignee/Status/IssueType",
-                "Assignee/IssueType/Status",
-                "IssueType/Status/Assignee",
-                "IssueType/Assignee/Status"
-            ]
-        };
-
-        await dispatch(generateReportJsonApi(token, command));
-
+    const handleSubmit = async (jiraToken: string, command: GenerateReportJsonCommand) => {
+        setIsLoading(true);
+        await dispatch(generateReportJsonApi(jiraToken, command));
+        setIsLoading(false);
     }
+
     return (
         <TrMainCard>
             <TrContainer>
                 <TrBox>
-                    <TrTitle>
-                        Jira Software
-                    </TrTitle>
-                    <TrSubTitle>
-                        How to use it
-                    </TrSubTitle>
-                    <TrParagraph>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia distinctio laborum, quas iste iure doloremque adipisci aut sint cum consectetur vitae maiores quaerat in optio illo consequatur et culpa! Veritatis.
-                    </TrParagraph>
-                    <TrSubTitle>
-                        Try it!
-                    </TrSubTitle>
-                    <div>
-                        <button onClick={handleClick}>
-                            Press
-                        </button>
-                    </div>
+                    <Grid container>
+                        <Grid xs={12}>
+                            <TrTitle>
+                                Jira Software
+                            </TrTitle>
+                        </Grid>
+                        <Grid xs={12}>
+                            <TrSubTitle>
+                                How to use it
+                            </TrSubTitle>
+                            <TrParagraph>
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia distinctio laborum, quas iste iure doloremque adipisci aut sint cum consectetur vitae maiores quaerat in optio illo consequatur et culpa! Veritatis.
+                            </TrParagraph>
+                        </Grid>
+                        <Grid xs={12}>
+                            <TrSubTitle>
+                                Generate a jira token
+                            </TrSubTitle>
+                            <TrParagraph>
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia distinctio laborum, quas iste iure doloremque adipisci aut sint cum consectetur vitae maiores quaerat in optio illo consequatur et culpa! Veritatis.
+                            </TrParagraph>
+
+                        </Grid>
+                        <Grid xs={6}>
+                            <TrSubTitle>
+                                Complete the form
+                            </TrSubTitle>
+                            <JiraSoftwareForm onSubmit={handleSubmit} isLoading={isLoading}/>
+                        </Grid>
+                        {
+                            !isLoading ?
+                                jiraCtx.isSuccess &&
+                                <Grid xs={12}>
+                                    <JiraResult data={jiraCtx} />
+                                </Grid>
+                                :
+                                <Grid xs={12} sx={{ display: "flex", justifyContent: "center", mt: 5 }}>
+                                    <TrSpinner />
+                                </Grid>
+                        }
+                    </Grid>
                 </TrBox>
             </TrContainer>
         </TrMainCard>
