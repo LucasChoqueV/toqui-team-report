@@ -6,9 +6,7 @@ import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import JiraResult from "./JiraResult";
 import { useState } from "react";
 
-type JiraSoftwareProps = {}
-
-const JiraSoftware = (props: JiraSoftwareProps) => {
+const JiraSoftware = () => {
 
     const dispatch = useAppDispatch();
     const jiraCtx = useAppSelector(store => store.jiraReducer);
@@ -55,7 +53,7 @@ const JiraSoftware = (props: JiraSoftwareProps) => {
                         </Grid>
                         {
                             !isLoading ?
-                                jiraCtx.isSuccess &&
+                                jiraCtx.isSuccess && !jiraCtx.queries &&
                                 <Grid xs={12}>
                                     <JiraResult data={jiraCtx} />
                                 </Grid>

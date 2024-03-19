@@ -3,7 +3,6 @@ import { GenerateReportJsonCommand } from '@/libs/backend';
 import { Box, Button, TextField, styled } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import { Add } from '@mui/icons-material';
-import { TrSpinner } from '@/libs/ui';
 
 interface JiraSoftwareFormValues {
     sprintName: string,
@@ -37,7 +36,7 @@ interface JiraSoftwareFormProps {
 
 const JiraSoftwareForm = (props: JiraSoftwareFormProps) => {
 
-    const handleSubmit = (values: JiraSoftwareFormValues, actions) => {
+    const handleSubmit = (values: JiraSoftwareFormValues) => {
         const command: GenerateReportJsonCommand = {
             sprintName: values.sprintName,
             boardName: values.boardName,
@@ -70,9 +69,7 @@ const JiraSoftwareForm = (props: JiraSoftwareFormProps) => {
                 touched,
                 handleChange,
                 handleBlur,
-                handleSubmit,
-                isSubmitting,
-                isValid
+                handleSubmit
             }) => (
                 <Form onSubmit={handleSubmit}>
                     <Grid container>
