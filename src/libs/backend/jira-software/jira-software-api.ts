@@ -12,7 +12,13 @@ export const generateReportJsonApi = (jiraToken: string, command: GenerateReport
                 await dispatch(JiraActions.fetchJiraReportData(axiosData));
                 result.isSuccess = true;
                 result.successMessage = axiosData.successMessage || "";
-                result.navigateTo = "/administration/categories";
+                result.navigateTo = "";
+            } else {
+                let errorMessage = "An error has ocurred";
+                if (axiosData.errorMessages) {
+                    errorMessage = axiosData.errorMessages[0];
+                }
+                throw new Error(errorMessage);
             }
         } catch (error: any) {
             result.errorMessage = processErrorMessage(error);
@@ -23,7 +29,7 @@ export const generateReportJsonApi = (jiraToken: string, command: GenerateReport
 
 // requests
 const generateReportJsonRequest = async (jiraToken: string, command: GenerateReportJsonCommand) => {
-    const TOQUI_JIRA_REPORT_API = "https://localhost:5500/api/report";
+    const TOQUI_JIRA_REPORT_API = import.meta.env.VITE_TOQUI_JIRA_REPORT_API;
     const url = `${TOQUI_JIRA_REPORT_API}/generate/json/`;
     const method = "POST";
     const response = await createRequestFunction(url, method, command, { "Authorization": `Basic ${jiraToken}` });

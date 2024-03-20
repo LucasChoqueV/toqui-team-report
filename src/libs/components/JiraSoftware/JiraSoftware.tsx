@@ -53,7 +53,7 @@ const JiraSoftware = () => {
                         </Grid>
                         {
                             !isLoading ?
-                                jiraCtx.isSuccess && !jiraCtx.queries &&
+                                jiraCtx.isSuccess && jiraCtx.queries &&
                                 <Grid xs={12}>
                                     <JiraResult data={jiraCtx} />
                                 </Grid>

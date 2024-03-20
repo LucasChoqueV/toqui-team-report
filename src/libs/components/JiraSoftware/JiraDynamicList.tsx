@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { List, ListItemIcon, ListItemText, Collapse, ListItem, Button, styled, Box, Typography } from '@mui/material';
-import { Inbox, StarBorder, ExpandLess, ExpandMore, Circle } from '@mui/icons-material';
+import { Collapse, Button, styled, Box } from '@mui/material';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { IssueReducerState } from '@/apps/redux';
 import { TrParagraph } from '@/libs/ui';
 
@@ -19,9 +19,9 @@ const Bold = styled('span')({
 
 const JiraDynamicList = (props: JiraDynamicListProps) => {
     const { data } = props;
-    const [isOpenList, setIsOpenList] = useState(data.map((query, index) => ({ id: index, isOpen: false }) as ICollapseIsOpenState));
+    const [isOpenList, setIsOpenList] = useState(data.map((_query, index) => ({ id: index, isOpen: false }) as ICollapseIsOpenState));
 
-    const handleClick = (event: any, id: number) => {
+    const handleClick = (id: number) => {
         const update = isOpenList.map(x => {
             if (x.id == id) {
                 return {
@@ -67,11 +67,11 @@ const JiraDynamicList = (props: JiraDynamicListProps) => {
                         <Bold>Order by:</Bold> {query[0].queryType}
                         {
                             isOpenList.find(x => x.id === index)?.isOpen ?
-                                <Button onClick={(event) => handleClick(event, index)}>
+                                <Button onClick={() => handleClick(index)}>
                                     <ExpandLess />
                                 </Button>
                                 :
-                                <Button onClick={(event) => handleClick(event, index)}>
+                                <Button onClick={() => handleClick(index)}>
                                     <ExpandMore />
                                 </Button>
                         }
