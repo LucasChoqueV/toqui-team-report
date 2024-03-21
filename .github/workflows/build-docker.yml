@@ -1,7 +1,8 @@
 name: Publish Docker image
-
-on: workflow_dispatch
-
+on:
+  push:
+    branches:
+      - 'main'
 jobs:
   build_docker:
     name: Push Docker image to Docker Hub
@@ -23,4 +24,3 @@ jobs:
           file: ./dockerfile
           push: true
           tags: lucasdaniel98/tr-web-app:${{ github.run_number }}
-            
