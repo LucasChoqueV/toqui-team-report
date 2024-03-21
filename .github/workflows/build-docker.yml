@@ -1,8 +1,5 @@
 name: Publish Docker image
-on:
-  push:
-    branches:
-      - 'main'
+on: [workflow_dispatch]
 jobs:
   build_app:
     name: Build app
