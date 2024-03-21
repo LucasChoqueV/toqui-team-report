@@ -6,6 +6,8 @@ jobs:
   build_docker:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
+    environment:
+      name: staging
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
