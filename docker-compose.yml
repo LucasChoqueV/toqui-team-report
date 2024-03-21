@@ -1,15 +1,16 @@
 version: '3.4'
 
-networks:
-  frontend:
 services:
   team-report-app:
     container_name: team-report-app-container
     build:
       context: .
-    networks:
-      - frontend
     ports:
       - 3000:80
     environment:
-      - TOQUI_JIRA_REPORT_API=http://localhost:5555/api/report
+      - VITE_TOQUI_JIRA_REPORT_API=http://localhost:5555/api/report
+
+networks:
+  default:
+    name: global
+    external: true

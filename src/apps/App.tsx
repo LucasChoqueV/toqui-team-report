@@ -4,16 +4,15 @@ import RouteLoader from '@/apps/routes/RouteLoader'
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
-  direction:"ltr",
-  palette: {
-    primary: {
-      main: "#3f1651",
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 960,
+      lg: 1280,
+      xl: 1920,
     },
-    secondary: {
-      main: '#653780',
-    },
-    
-  }
+  },
 });
 
 function App() {
