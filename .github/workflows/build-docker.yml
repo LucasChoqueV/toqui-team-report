@@ -4,8 +4,8 @@ on:
     branches:
       - 'main'
 jobs:
-  build_docker:
-    name: Push Docker image to Docker Hub
+  build_app:
+    name: Build app
     runs-on: ubuntu-latest
     environment:
       name: staging
@@ -24,3 +24,14 @@ jobs:
           file: ./dockerfile
           push: true
           tags: lucasdaniel98/tr-web-app:${{ github.run_number }}
+  deploy_app:
+    name: Deploy app
+    runs-on: ubuntu-latest
+    steps:
+    - name: Executing remote ssh commands using password
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        script: bash ./deploy/deploy.sh
