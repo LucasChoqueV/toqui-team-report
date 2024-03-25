@@ -12,7 +12,7 @@ jobs:
       - name: Configure env file
         run: |
           touch .env.production
-          echo VITE_TOQUI_JIRA_REPORT_API=${{ env.VITE_TOQUI_JIRA_REPORT_API }} >> .env.production
+          echo VITE_TOQUI_JIRA_REPORT_API=${{ vars.VITE_TOQUI_JIRA_REPORT_API }} >> .env.production
           cat .env.production
           ls -la
       - name: Log in to Docker Hub
@@ -26,7 +26,7 @@ jobs:
           context: .
           file: ./dockerfile
           push: true
-          tags: lucasdaniel98/tr-web-app:${{ github.run_number }}
+          tags: ${{ vars.DOCKER_IMAGE }}:${{ github.run_number }}
   # deploy_app:
   #   name: Deploy app
   #   needs: build_app
