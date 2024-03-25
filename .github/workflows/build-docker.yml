@@ -24,7 +24,7 @@ jobs:
           context: .
           file: ./dockerfile
           push: true
-          tags: ${{ env.DOCKER_IMAGE }}:${{ github.run_number }}
+          tags: lucasdaniel98/tr-web-app:${{ github.run_number }}
   # deploy_app:
   #   name: Deploy app
   #   needs: build_app
