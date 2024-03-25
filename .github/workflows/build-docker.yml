@@ -9,6 +9,10 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
+      - name: Configure env file
+        run: |
+          touch .env.production
+          echo VITE_TOQUI_JIRA_REPORT_API=${{ env.VITE_TOQUI_JIRA_REPORT_API }} >> .env.production
       - name: Log in to Docker Hub
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
         with:
@@ -20,16 +24,16 @@ jobs:
           context: .
           file: ./dockerfile
           push: true
-          tags: lucasdaniel98/tr-web-app:${{ github.run_number }}
-  deploy_app:
-    name: Deploy app
-    needs: build_app
-    runs-on: ubuntu-latest
-    steps:
-    - name: Executing remote ssh commands using password
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.KEY }}
-        script: bash ./deploy/deploy.sh
+          tags: ${{ env.DOCKER_IMAGE }}:${{ github.run_number }}
+  # deploy_app:
+  #   name: Deploy app
+  #   needs: build_app
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Executing remote ssh commands using password
+  #     uses: appleboy/ssh-action@v1.0.3
+  #     with:
+  #       host: ${{ secrets.HOST }}
+  #       username: ${{ secrets.USERNAME }}
+  #       key: ${{ secrets.KEY }}
+  #       script: bash ./deploy/deploy.sh
