@@ -1,5 +1,4 @@
 #.dockerignore 
-.env
 deploy
 dist
 node_modules
