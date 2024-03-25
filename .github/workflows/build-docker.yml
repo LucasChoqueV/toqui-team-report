@@ -25,15 +25,15 @@ jobs:
           file: ./dockerfile
           push: true
           tags: ${{ vars.DOCKER_IMAGE }}:${{ github.run_number }}
-  # deploy_app:
-  #   name: Deploy app
-  #   needs: build_app
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Executing remote ssh commands using password
-  #     uses: appleboy/ssh-action@v1.0.3
-  #     with:
-  #       host: ${{ secrets.HOST }}
-  #       username: ${{ secrets.USERNAME }}
-  #       key: ${{ secrets.KEY }}
-  #       script: bash ./deploy/deploy.sh
+  deploy_app:
+    name: Deploy app
+    needs: build_app
+    runs-on: ubuntu-latest
+    steps:
+    - name: Executing remote ssh commands using password
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        script: whoami
