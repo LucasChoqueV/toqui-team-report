@@ -35,5 +35,5 @@ jobs:
       with:
         host: ec2-3-15-22-97.us-east-2.compute.amazonaws.com
         username: ubuntu
-        key: ${{ secrets.KEY }}
+        key: ${{ vars.KEY_FILE }}
         script: whoami
