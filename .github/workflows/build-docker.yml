@@ -35,11 +35,17 @@ jobs:
 
       - name: Set up SSH
         run: |
+          echo "apt get update"
           sudo apt-get update -y
+          echo "apt get isntall openssh"
           sudo apt-get install openssh-client -y
+          echo "eval"
           eval $(ssh-agent -s)
+          echo "ssh-add"
           ssh-add <(echo "${{ secrets.KEY }}")
+          echo "mkdir ssh"
           mkdir -p ~/.ssh
+          echo "echo ssh/config"
           echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
 
       - name: Execute deployment script via SSH
