@@ -30,10 +30,18 @@ jobs:
     needs: build_app
     runs-on: ubuntu-latest
     steps:
-    - name: Executing remote ssh commands
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ec2-3-15-22-97.us-east-2.compute.amazonaws.com
-        username: ubuntu
-        key: ${{ vars.KEY_FILE }}
-        script: whoami
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up SSH
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install openssh-client -y
+          eval $(ssh-agent -s)
+          ssh-add <(echo "${{ secrets.KEY }}")
+          mkdir -p ~/.ssh
+          echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+
+      - name: Execute deployment script via SSH
+        run: |
+          ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} 'bash -s' < deploy.sh ${{ vars.DOCKER_IMAGE }}:${{ github.run_number }} ${{ vars.VITE_TOQUI_JIRA_REPORT_API }} ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}
