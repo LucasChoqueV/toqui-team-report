@@ -28,6 +28,8 @@ jobs:
   deploy_app:
     name: Deploy app
     needs: build_app
+    environment:
+      name: staging
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -58,4 +60,4 @@ jobs:
 
       - name: Execute deployment script via SSH
         run: |
-          ssh ubuntu@3.15.22.97 'bash -s' < deploy/deploy.sh lucasdaniel98/tr-web-app:${{ github.run_number }} http://ec2-3-133-126-27.us-east-2.compute.amazonaws.com/api/report ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}
+          ssh ${{ secrets.SSH_USER }}@3.15.22.97 'bash -s' < deploy/deploy.sh lucasdaniel98/tr-web-app:${{ github.run_number }} http://ec2-3-133-126-27.us-east-2.compute.amazonaws.com/api/report ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}
