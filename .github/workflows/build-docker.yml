@@ -58,4 +58,4 @@ jobs:
 
       - name: Execute deployment script via SSH
         run: |
-          ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} 'bash -s' < deploy/deploy.sh ${{ vars.DOCKER_IMAGE }}:${{ github.run_number }} ${{ vars.VITE_TOQUI_JIRA_REPORT_API }} ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}
+          ssh ubuntu@3.15.22.97 'bash -s' < deploy/deploy.sh ${{ vars.DOCKER_IMAGE }}:${{ github.run_number }} ${{ vars.VITE_TOQUI_JIRA_REPORT_API }} ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}
