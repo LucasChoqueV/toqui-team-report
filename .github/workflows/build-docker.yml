@@ -50,6 +50,7 @@ jobs:
           echo "cat id_rsa"
           cat ~/.ssh/id_rsa
           ls ~/.ssh
+          ls -la
           echo "ssh-add"
           ssh-add ~/.ssh/id_rsa
           echo "config"
@@ -57,4 +58,4 @@ jobs:
 
       - name: Execute deployment script via SSH
         run: |
-          ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} 'bash -s' < deploy.sh ${{ vars.DOCKER_IMAGE }}:${{ github.run_number }} ${{ vars.VITE_TOQUI_JIRA_REPORT_API }} ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}
+          ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} 'bash -s' < deploy/deploy.sh ${{ vars.DOCKER_IMAGE }}:${{ github.run_number }} ${{ vars.VITE_TOQUI_JIRA_REPORT_API }} ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}
