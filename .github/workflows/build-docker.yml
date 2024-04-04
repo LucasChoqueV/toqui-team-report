@@ -41,14 +41,14 @@ jobs:
           sudo apt-get install openssh-client -y
           echo "eval"
           eval $(ssh-agent -s)
+          echo "mkdir"
+          mkdir -p ~/.ssh
           echo "base64 decode"
           echo "${{ secrets.KEY }}" | base64 --decode > ~/.ssh/id_rsa
           echo "chmod 400"
           chmod 400 ~/.ssh/id_rsa
           echo "ssh-add"
           ssh-add ~/.ssh/id_rsa
-          echo "mkdir"
-          mkdir -p ~/.ssh
           echo "config"
           echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
 
