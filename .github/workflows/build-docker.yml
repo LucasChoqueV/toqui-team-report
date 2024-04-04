@@ -47,6 +47,8 @@ jobs:
           echo "${{ secrets.KEY }}" | base64 --decode > ~/.ssh/id_rsa
           echo "chmod 400"
           chmod 400 ~/.ssh/id_rsa
+          echo "cat id_rsa"
+          cat ~/.ssh/id_rsa
           echo "ssh-add"
           ssh-add ~/.ssh/id_rsa
           echo "config"
