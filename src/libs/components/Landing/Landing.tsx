@@ -125,7 +125,7 @@ const Landing = () => {
                     <Grid container>
                         <Grid xs={12} md={7} sx={{ display: "flex", alignItems: "center", p: 3 }}>
                             <div>
-                                <Title>Create a report of your team</Title>
+                                <Title>Create a report of your team!!</Title>
                                 <Desc>
                                     we enjoy creating delightful, human-centered digital experiences.
                                 </Desc>
