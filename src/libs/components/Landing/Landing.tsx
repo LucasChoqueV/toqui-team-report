@@ -1,6 +1,6 @@
 import { TrBox, TrContainer, TrMainCard } from "@/libs/ui/index";
 import { Button, Typography, styled } from "@mui/material";
-import image from "@/apps/assets/images/moon.png";
+import image from "@/apps/assets/images/main.svg";
 import Grid from '@mui/material/Unstable_Grid2';
 
 const Title = styled(Typography)(({ theme }) => ({
@@ -127,7 +127,7 @@ const Landing = () => {
                             <div>
                                 <Title>Create a report of your team</Title>
                                 <Desc>
-                                    we enjoy creating delightful, human-centered digital experiences.
+                                    Transform your sprint data into actionable insights with ease.
                                 </Desc>
                                 <StyledButton>Learn More</StyledButton>
                             </div>
