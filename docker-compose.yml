@@ -8,7 +8,7 @@ services:
     ports:
       - 3000:80
     environment:
-      - VITE_TOQUI_JIRA_REPORT_API=http://localhost:5555/api/report
+      - NODE_ENV=local
 
 networks:
   default:
