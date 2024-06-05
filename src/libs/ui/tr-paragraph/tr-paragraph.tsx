@@ -12,10 +12,10 @@ const Paragraph = styled(Typography)(({ theme }) => ({
         fontSize: "15px"
     },
     [theme.breakpoints.up("lg")]: {
-        fontSize: "19px"
+        fontSize: "17px"
     },
     [theme.breakpoints.up("xl")]: {
-        fontSize: "21px"
+        fontSize: "19px"
     }
 }));
 
