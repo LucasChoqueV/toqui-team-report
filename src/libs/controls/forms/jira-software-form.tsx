@@ -3,6 +3,9 @@ import { GenerateReportJsonCommand } from '@/libs/backend';
 import { Box, Button, TextField, styled } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import { Add } from '@mui/icons-material';
+import { Tag } from 'node_modules/react-tag-input/types/components/SingleTag';
+import { useState } from 'react';
+import { TrInputTag } from '@/libs/ui';
 
 interface JiraSoftwareFormValues {
     sprintName: string,
@@ -29,6 +32,7 @@ const StyledBoxButton = styled(Box)({
 
 const StyledTextField = styled(TextField)({
 })
+
 interface JiraSoftwareFormProps {
     onSubmit: (jiraToken: string, command: GenerateReportJsonCommand) => void;
     isLoading: boolean;
@@ -36,14 +40,28 @@ interface JiraSoftwareFormProps {
 
 const JiraSoftwareForm = (props: JiraSoftwareFormProps) => {
 
+    const [tags, setTags] = useState<Array<Tag>>([]);
+
     const handleSubmit = (values: JiraSoftwareFormValues) => {
         const command: GenerateReportJsonCommand = {
             sprintName: values.sprintName,
             boardName: values.boardName,
-            queries: values.queries.split(',')
+            queries: tags.map(x => x.text)
         }
         props.onSubmit(values.jiraToken, command);
+
     }
+
+
+    const handleDelete = (index: number) => {
+        setTags(tags.filter((_, i) => i !== index));
+    };
+
+    const handleAddition = (tag: Tag) => {
+        setTags((prevTags) => {
+            return [...prevTags, tag];
+        });
+    };
 
     return (
         <Formik
@@ -84,6 +102,7 @@ const JiraSoftwareForm = (props: JiraSoftwareFormProps) => {
                                     value={values.sprintName}
                                     label="Sprint Name"
                                     fullWidth
+                                    tabIndex={0}
                                     error={(errors.sprintName ? true : false) && touched.sprintName}
                                     helperText={errors.sprintName}
                                 />
@@ -106,23 +125,7 @@ const JiraSoftwareForm = (props: JiraSoftwareFormProps) => {
                             </StyledBoxInput>
                         </Grid>
                         <Grid xs={12}>
-                            <StyledBoxInput>
-                                <StyledTextField
-                                    id="queries"
-                                    name="queries"
-                                    type="text"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.queries}
-                                    label="Queries"
-                                    placeholder='Please separate the query using "," like this: Status/Assigne,IssueType'
-                                    multiline
-                                    minRows={5}
-                                    fullWidth
-                                    error={(errors.queries ? true : false) && touched.queries}
-                                    helperText={errors.queries}
-                                />
-                            </StyledBoxInput>
+                            <TrInputTag tags={tags} handleAddition={handleAddition} handleDelete={handleDelete} />
                         </Grid>
                         <Grid xs={12}>
                             <StyledBoxInput>

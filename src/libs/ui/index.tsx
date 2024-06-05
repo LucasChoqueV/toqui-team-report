@@ -6,3 +6,4 @@ export { default as TrTitle} from "./tr-title/tr-title";
 export { default as TrSubTitle} from "./tr-subtitle/tr-subtitle";
 export { default as TrThirdTitle} from "./tr-thirdtitle/tr-thirdtitle";
 export { default as TrParagraph} from "./tr-paragraph/tr-paragraph";
+export { default as TrInputTag} from "./tr-input-tag/tr-input-tag";

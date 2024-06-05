@@ -46,7 +46,7 @@ const JiraDynamicList = (props: JiraDynamicListProps) => {
                                 <Box key={index} sx={{ pl: 3 * tab }}>
                                     <li>
                                         <TrParagraph>
-                                            {child.name} - {child.total} tasks
+                                            {child.name} - {child.total} task(s)
                                         </TrParagraph>
                                         {child.child ? renderChilds(child.child, tab + 1, index) : null}
                                     </li>

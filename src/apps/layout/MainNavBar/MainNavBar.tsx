@@ -241,8 +241,8 @@ const MainNavBar = (props: MainNavBarProps) => {
                                                 onClick={() => handleClose(item.id)}
                                             >
                                                 {
-                                                    item.subItems?.map((subItem: any) => (
-                                                        <MenuItem onClick={() => navigate(subItem.href)}>
+                                                    item.subItems?.map((subItem: any, index: number) => (
+                                                        <MenuItem key={index} onClick={() => navigate(subItem.href)}>
                                                             <StyledNavLink
                                                                 to={subItem.href}
                                                                 style={({ isActive }) => {
