@@ -67,7 +67,7 @@ const JiraSoftware = () => {
                                     </li>
                                     <li>
                                         <TrParagraph>
-                                            <Bold>Queries:</Bold> A query is the way in which information will be gathered. Follow the following syntax: "QueryName/SubQuery/". Queries can be nested to obtain more detailed information. Use a comma (,) to separate multiple requests. The supported queries are as follows:
+                                            <Bold>Queries:</Bold> A query is the way in which information will be gathered. Follow the following syntax: "QueryName/SubQuery/". Queries can be nested to obtain more detailed information using (/). Press "Enter" to separate multiple requests. The supported queries are as follows:
                                         </TrParagraph>
                                         <PaddingLeft>
 
